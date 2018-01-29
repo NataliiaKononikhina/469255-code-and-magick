@@ -21,7 +21,7 @@ var getMaxElement = function (arr) {
   var maxElement = arr[0];
 
   for (var i = 0; i < arr.length; i++) {
-    if (arr[i] > maxElement)  {
+    if (arr[i] > maxElement) {
       maxElement = arr[i];
     }
   }
@@ -47,7 +47,7 @@ window.renderStatistics = function (ctx, names, times) {
       ctx.fillStyle = 'rgba(0, 0, 255,' + Math.random() + ')';
     }
 
-    ctx.fillRect(CLOUD_X + 25 + FONT_GAP + (BAR_WIDTH + BAR_GAP) * i, NAME_Y - CLOUD_GAP - FONT_HEIGHT, BAR_WIDTH, - (BAR_HEIGHT * times[i]) / maxTime);
+    ctx.fillRect(CLOUD_X + 25 + FONT_GAP + (BAR_WIDTH + BAR_GAP) * i, NAME_Y - CLOUD_GAP - FONT_HEIGHT, BAR_WIDTH, -(BAR_HEIGHT * times[i]) / maxTime);
 
     ctx.fillStyle = '#000';
     ctx.fillText(names[i], CLOUD_X + 25 + FONT_GAP + (BAR_WIDTH + BAR_GAP) * i, NAME_Y);
