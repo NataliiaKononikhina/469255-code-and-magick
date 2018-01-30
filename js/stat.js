@@ -34,12 +34,12 @@ var getMaxElement = function (arr) {
 };
 
 var getRandomNumber = function (min, max) {
-  return Math.floor(Math.random() * (max - min + 1) ) + min;
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
 var getColor = function (red, green, blue, opacity) {
   return 'rgba(' + red + ',' + green + ',' + blue + ',' + opacity + ')';
-}
+};
 
 var writeText = function (ctx, color, text, coordinateX, coordinateY) {
   ctx.font = '16px PT Mono';
@@ -57,7 +57,11 @@ window.renderStatistics = function (ctx, names, times) {
   var maxTime = getMaxElement(times);
 
   for (var i = 0; i < names.length; i++) {
-    names[i] === 'Вы' ? ctx.fillStyle = YOUR_BAR_COLOR : ctx.fillStyle = getColor(0, 0, 255, getRandomNumber(0.2, 1));
+    if (names[i] === 'Вы') {
+      ctx.fillStyle = YOUR_BAR_COLOR;
+    } else {
+      ctx.fillStyle = getColor(0, 0, 255, getRandomNumber(0.2, 1));
+    }
 
     ctx.fillRect(CLOUD_X + TEXT_PADDING_X + FONT_GAP + (BAR_WIDTH + BAR_GAP) * i, NAME_Y - CLOUD_GAP - FONT_HEIGHT, BAR_WIDTH, -(BAR_HEIGHT * times[i]) / maxTime);
 
