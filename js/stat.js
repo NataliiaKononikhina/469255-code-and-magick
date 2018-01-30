@@ -8,9 +8,13 @@ var CLOUD_GAP = 10;
 var BAR_WIDTH = 40;
 var BAR_HEIGHT = 150;
 var BAR_GAP = 50;
+var YOUR_BAR_COLOR = 'rgba(255, 0, 0, 1)';
 var FONT_GAP = 15;
 var FONT_HEIGHT = 10;
 var NAME_Y = 260;
+var TEXT_PADDING_X = 20;
+var PADDING_TOP = 30;
+var PADDING_TIME_TEXT = 80;
 
 var renderCloud = function (ctx, x, y, color) {
   ctx.fillStyle = color;
@@ -20,7 +24,7 @@ var renderCloud = function (ctx, x, y, color) {
 var getMaxElement = function (arr) {
   var maxElement = arr[0];
 
-  for (var i = 0; i < arr.length; i++) {
+  for (var i = 1; i < arr.length; i++) {
     if (arr[i] > maxElement) {
       maxElement = arr[i];
     }
@@ -29,28 +33,35 @@ var getMaxElement = function (arr) {
   return maxElement;
 };
 
+var getRandomNumber = function (min, max) {
+  return Math.floor(Math.random() * (max - min + 1) ) + min;
+};
+
+var getColor = function (red, green, blue, opacity) {
+  return 'rgba(' + red + ',' + green + ',' + blue + ',' + opacity + ')';
+}
+
+var writeText = function (ctx, color, text, coordinateX, coordinateY) {
+  ctx.font = '16px PT Mono';
+  ctx.fillStyle = color;
+  ctx.fillText(text, coordinateX, coordinateY);
+};
+
 window.renderStatistics = function (ctx, names, times) {
   renderCloud(ctx, CLOUD_X + CLOUD_GAP, CLOUD_Y + CLOUD_GAP, 'rgba(0, 0, 0, 0.7)');
   renderCloud(ctx, CLOUD_X, CLOUD_Y, '#fff');
 
-  ctx.fillStyle = '#000';
-  ctx.font = '16px PT Mono';
-  ctx.fillText('Ура вы победили!', CLOUD_X + 20, CLOUD_Y + 30);
-  ctx.fillText('Список результатов:', CLOUD_X + 20, CLOUD_Y + 50);
+  writeText(ctx, '#000', 'Ура вы победили!', CLOUD_X + TEXT_PADDING_X, CLOUD_Y + PADDING_TOP);
+  writeText(ctx, '#000', 'Список результатов:', CLOUD_X + TEXT_PADDING_X, CLOUD_Y + PADDING_TOP + FONT_HEIGHT + CLOUD_GAP);
 
   var maxTime = getMaxElement(times);
 
   for (var i = 0; i < names.length; i++) {
-    if (names[i] === 'Вы') {
-      ctx.fillStyle = 'rgba(255, 0, 0, 1)';
-    } else {
-      ctx.fillStyle = 'rgba(0, 0, 255,' + Math.random() + ')';
-    }
+    names[i] === 'Вы' ? ctx.fillStyle = YOUR_BAR_COLOR : ctx.fillStyle = getColor(0, 0, 255, getRandomNumber(0.2, 1));
 
-    ctx.fillRect(CLOUD_X + 25 + FONT_GAP + (BAR_WIDTH + BAR_GAP) * i, NAME_Y - CLOUD_GAP - FONT_HEIGHT, BAR_WIDTH, -(BAR_HEIGHT * times[i]) / maxTime);
+    ctx.fillRect(CLOUD_X + TEXT_PADDING_X + FONT_GAP + (BAR_WIDTH + BAR_GAP) * i, NAME_Y - CLOUD_GAP - FONT_HEIGHT, BAR_WIDTH, -(BAR_HEIGHT * times[i]) / maxTime);
 
-    ctx.fillStyle = '#000';
-    ctx.fillText(names[i], CLOUD_X + 25 + FONT_GAP + (BAR_WIDTH + BAR_GAP) * i, NAME_Y);
-    ctx.fillText(Math.round(times[i]), CLOUD_X + 25 + FONT_GAP + (BAR_WIDTH + BAR_GAP) * i, 80);
+    writeText(ctx, '#000', Math.round(times[i]), CLOUD_X + TEXT_PADDING_X + FONT_GAP + (BAR_WIDTH + BAR_GAP) * i, PADDING_TIME_TEXT);
+    writeText(ctx, '#000', names[i], CLOUD_X + TEXT_PADDING_X + FONT_GAP + (BAR_WIDTH + BAR_GAP) * i, NAME_Y);
   }
 };
