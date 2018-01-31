@@ -57,11 +57,7 @@ window.renderStatistics = function (ctx, names, times) {
   var maxTime = getMaxElement(times);
 
   for (var i = 0; i < names.length; i++) {
-    if (names[i] === 'Вы') {
-      ctx.fillStyle = YOUR_BAR_COLOR;
-    } else {
-      ctx.fillStyle = getColor(0, 0, 255, getRandomNumber(0.2, 1));
-    }
+    ctx.fillStyle = (names[i] === 'Вы') ? YOUR_BAR_COLOR : getColor(0, 0, 255, getRandomNumber(0.2, 1));
 
     ctx.fillRect(
         CLOUD_X + TEXT_PADDING_X + FONT_GAP + (BAR_WIDTH + BAR_GAP) * i,
