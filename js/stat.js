@@ -64,23 +64,23 @@ window.renderStatistics = function (ctx, names, times) {
     }
 
     ctx.fillRect(
-      CLOUD_X + TEXT_PADDING_X + FONT_GAP + (BAR_WIDTH + BAR_GAP) * i,
-      NAME_Y - CLOUD_GAP - FONT_HEIGHT,
-      BAR_WIDTH,
-      -(BAR_HEIGHT * times[i]) / maxTime
+        CLOUD_X + TEXT_PADDING_X + FONT_GAP + (BAR_WIDTH + BAR_GAP) * i,
+        NAME_Y - CLOUD_GAP - FONT_HEIGHT,
+        BAR_WIDTH,
+        -(BAR_HEIGHT * times[i]) / maxTime
     );
 
     writeText(
-      ctx,
-      Math.round(times[i]),
-      CLOUD_X + TEXT_PADDING_X + FONT_GAP + (BAR_WIDTH + BAR_GAP) * i,
-      PADDING_TIME_TEXT
+        ctx,
+        Math.round(times[i]),
+        CLOUD_X + TEXT_PADDING_X + FONT_GAP + (BAR_WIDTH + BAR_GAP) * i,
+        PADDING_TIME_TEXT
     );
     writeText(
-      ctx,
-      names[i],
-      CLOUD_X + TEXT_PADDING_X + FONT_GAP + (BAR_WIDTH + BAR_GAP) * i,
-      NAME_Y
+        ctx,
+        names[i],
+        CLOUD_X + TEXT_PADDING_X + FONT_GAP + (BAR_WIDTH + BAR_GAP) * i,
+        NAME_Y
     );
   }
 };
