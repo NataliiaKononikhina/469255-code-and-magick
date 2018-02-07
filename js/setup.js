@@ -39,13 +39,8 @@ var EYES_COLORS = [
   'green'
 ];
 
-var removeClass = function (selector, className) {
-  var node = document.querySelector(selector);
-
-  node.classList.remove(className);
-};
-
-removeClass('.setup', 'hidden');
+var setup = document.querySelector('.setup');
+var setupSimilar = setup.querySelector('.setup-similar');
 
 var getRandomNumber = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -57,7 +52,7 @@ var getRandomName = function () {
   return name;
 };
 
-var getRandomWizard = function () {
+var generateWizard = function () {
   var randomWizard = {
     name: getRandomName(),
     coatColor: COAT_COLORS[getRandomNumber(0, COAT_COLORS.length - 1)],
@@ -69,22 +64,24 @@ var getRandomWizard = function () {
 
 var getWizards = function () {
   var arrWizards = [];
+  var quantitySimilarWizards = 4;
 
-  for (var i = 0; i < 4; i++) {
-    arrWizards.push(getRandomWizard());
+  for (var i = 0; i < quantitySimilarWizards; i++) {
+    arrWizards.push(generateWizard());
   }
 
   return arrWizards;
 };
 
-var getWizardsToDom = function () {
+var renderWizards = function () {
+  var quantitySimilarWizards = 4;
   var arrWizards = getWizards();
   var template = document.getElementById('similar-wizard-template');
   var setupSimilarItem = template.content.querySelector('.setup-similar-item');
 
-  for (var i = 0; i < 4; i++) {
+  for (var i = 0; i < quantitySimilarWizards; i++) {
     var setupItem = setupSimilarItem.cloneNode(true);
-    var setupSimilarList = document.querySelector('.setup-similar-list');
+    var setupSimilarList = setupSimilar.querySelector('.setup-similar-list');
     var fragment = document.createDocumentFragment();
 
     setupItem.querySelector('.setup-similar-label').textContent = arrWizards[i].name;
@@ -96,5 +93,10 @@ var getWizardsToDom = function () {
   }
 };
 
-removeClass('.setup-similar', 'hidden');
-getWizardsToDom();
+var showSetup = function () {
+  setup.classList.remove('hidden');
+  setupSimilar.classList.remove('hidden');
+};
+
+showSetup();
+renderWizards();
