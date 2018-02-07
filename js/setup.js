@@ -65,7 +65,7 @@ var getRandomWizard = function () {
   };
 
   return randomWizard;
-}
+};
 
 var getWizards = function () {
   var arrWizards = [];
